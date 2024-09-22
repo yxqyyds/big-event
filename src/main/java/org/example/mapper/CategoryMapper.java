@@ -3,6 +3,7 @@ package org.example.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.example.pojo.Category;
 
 import java.util.List;
@@ -15,4 +16,10 @@ public interface CategoryMapper {
 
     @Select("select * from en_article_cate where create_user=#{userId}")
     List<Category> list(Integer userId);
+
+    @Select("select * from en_article_cate where id=#{id}")
+    Category findById(Integer id);
+
+    @Update("update en_article_cate set name=#{name},alias=#{alias},update_time=#{updateTime} where id={id}")
+    void update(Category category);
 }

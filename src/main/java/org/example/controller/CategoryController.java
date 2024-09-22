@@ -7,15 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("Category")
+@RequestMapping("/Category")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @PostMapping
-    public Result add(@RequestBody @Validated Category category){
+    public Result add(@RequestBody @Validated(Category.Add.class) Category category){
         categoryService.add(category);
         return Result.success();
     }
@@ -25,5 +26,16 @@ public class CategoryController {
         List<Category> cs=categoryService.list();
         return Result.success(cs);
     }
+    @GetMapping("/detail")
+    public Result<Category> detail(Integer id){
+        Category c=categoryService.findById(id);
+        return Result.success(c);
+    }
+    @PutMapping
+    public Result update(@RequestBody @Validated(Category.Update.class) Category category){
+        category.setUpdateTime(LocalDateTime.now());
+        categoryService.update(category);
+        return Result.success();
 
+    }
 }
