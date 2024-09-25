@@ -7,10 +7,12 @@ import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.groups.Default;
 import java.time.LocalDateTime;
 
 @Data
 public class Article {
+    @NotNull(groups = update.class)
     private Integer id;
     @NotEmpty
     @Pattern(regexp = "^\\S{1,10}$")
@@ -27,5 +29,12 @@ public class Article {
     private Integer authorId;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+
+    public interface update extends Default{
+
+    }
+    public interface add extends Default{
+
+    }
 
 }

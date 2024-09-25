@@ -1,9 +1,6 @@
 package org.example.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.example.pojo.Category;
 
 import java.util.List;
@@ -22,4 +19,7 @@ public interface CategoryMapper {
 
     @Update("update en_article_cate set name=#{name},alias=#{alias},update_time=#{updateTime} where id={id}")
     void update(Category category);
+
+    @Delete("delete from en_article_cate where id=#{id}")
+    void delete(Integer id);
 }

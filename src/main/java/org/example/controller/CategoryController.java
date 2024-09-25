@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/Category")
+@Validated
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -35,6 +37,12 @@ public class CategoryController {
     public Result update(@RequestBody @Validated(Category.Update.class) Category category){
         category.setUpdateTime(LocalDateTime.now());
         categoryService.update(category);
+        return Result.success();
+
+    }
+    @DeleteMapping
+    public Result delete(@NotNull Integer id){
+        categoryService.delete(id);
         return Result.success();
 
     }
